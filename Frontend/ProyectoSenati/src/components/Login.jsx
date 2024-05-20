@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 
 function Login(){
 
     const { register, handleSubmit, formState: { errors },reset  } = useForm();
-    const [error, setError] = useState(null);
+    //const [error, setError] = useState(null);
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);

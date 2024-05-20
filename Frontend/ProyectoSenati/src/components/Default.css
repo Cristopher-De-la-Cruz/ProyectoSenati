@@ -1,0 +1,17 @@
+.nav-width-default{
+    min-width: 85%;
+}
+.w-95-percent{
+    width: 95%;
+    max-width: 95%;
+    min-width: 95%;
+}
+
+.p-a-10{
+    padding: 10px;
+}
+
+.m-a-20{
+    margin: 20px;
+}
+
