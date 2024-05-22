@@ -4,6 +4,7 @@ import Login from './components/Login'
 import DefaultPage from './components/DefaultPage'
 import Clientes from './components/Clientes'
 import Productos from './components/Productos'
+import Proyectos from './components/Proyectos'
 import Trabajadores from './components/Trabajadores'
 import Contratos from './components/Contratos'
 import Facturas from './components/Facturas'
@@ -24,6 +25,7 @@ function App() {
         {/* CRISTOPHER */}
         <Route path='/clientes' element={<Clientes/>}/>
         <Route path='/productos' element={<Productos/>}/>
+        <Route path='/proyectos' element={<Proyectos/>}/>
         {/* JOSUE */}
         <Route path='/trabajadores' element={<Trabajadores/>}/>
         <Route path='/contratos' element={<Contratos/>}/>

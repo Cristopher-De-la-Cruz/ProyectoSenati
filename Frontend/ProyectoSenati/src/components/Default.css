@@ -15,3 +15,33 @@
     margin: 20px;
 }
 
+.cont-80-percent{
+    width: 80%;
+    max-width: 80%;
+    min-width: 80%;
+}
+
+.cont-20-percent{
+    width: 20%;
+    max-width: 20%;
+    min-width: 20%;
+}   
+.jus-cnt-center{
+    justify-content: center;
+}
+.ali-items-center{
+    align-items: center; padding: 5px 0px;
+}
+
+.select-h{
+    padding: 10px 6px;
+}
+
+.text-gray-color{
+    color: #999 !important; 
+}
+
+.cuadrado-35{
+    height: 35px;
+    width: 35px;
+}
