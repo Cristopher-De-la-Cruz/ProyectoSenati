@@ -15,7 +15,7 @@ CREATE PROCEDURE sp_CrearAtencionCliente (
     IN p_prioridad VARCHAR(50)
 )
 BEGIN
-    INSERT INTO ficha_atencion_cliente (id_cliente, p_id_usuario, asunto, descripcion, estado_ticket, prioridad)
+    INSERT INTO ficha_atencion_cliente (id_cliente, id_usuario, asunto, descripcion, estado_ticket, prioridad)
     VALUES (p_id_cliente, p_id_usuario, p_asunto, p_descripcion, true, p_prioridad);
 
 END//

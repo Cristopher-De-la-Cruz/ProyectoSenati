@@ -51,49 +51,37 @@ DELIMITER //
 
 CREATE PROCEDURE sp_ActualizarCliente (
     IN p_id_cliente INT,
-    IN p_nombre VARCHAR(15),
-    IN p_telefono_contacto VARCHAR(15),
-    IN p_estado_cliente BOOLEAN,
-    IN p_correo_electronico VARCHAR(15),
+    IN p_nombre VARCHAR(100),
+    IN p_telefono_contacto VARCHAR(100),
+    IN p_correo_electronico VARCHAR(100),
     IN p_identificador INT,
-    IN p_nombre_contacto_apellido VARCHAR(15),
-    IN p_direccion VARCHAR(15)
+    IN p_nombre_contacto_apellido VARCHAR(100),
+    IN p_direccion VARCHAR(100)
 )
 BEGIN
     DECLARE cliente_tipo ENUM('corporativo', 'natural');
-
-    SELECT tipo_cliente INTO cliente_tipo FROM (
-        SELECT 'corporativo' AS tipo_cliente FROM CLIENTE_CORPORATIVO WHERE id_cliente = p_id_cliente
-        UNION ALL
-        SELECT 'natural' AS tipo_cliente FROM CLIENTE_NATURAL WHERE id_cliente = p_id_cliente
-    ) AS subquery LIMIT 1;
-
-    UPDATE CLIENTE
-    SET
-        nombre = IFNULL(p_nombre, nombre),
-        telefono_contacto = IFNULL(p_telefono_contacto, telefono_contacto),
-        estado_cliente = IFNULL(p_estado_cliente, estado_cliente),
-        correo_electronico = IFNULL(p_correo_electronico, correo_electronico)
+    
+    UPDATE cliente
+    SET nombre = p_nombre,
+    telefono_contacto = p_telefono_contacto,
+    correo_electronico = p_correo_electronico
+    WHERE id = p_id_cliente;
+    
+    UPDATE cliente_corporativo
+    SET ruc = p_identificador,
+    nombre_contacto = p_nombre_contacto_apellido,
+    direccion_comercial = p_direccion
     WHERE id_cliente = p_id_cliente;
 
-    IF cliente_tipo = 'corporativo' THEN
-        UPDATE CLIENTE_CORPORATIVO
-        SET
-            ruc = IFNULL(p_identificador, ruc),
-            nombre_contacto = IFNULL(p_nombre_contacto_apellido, nombre_contacto),
-            direccion_comercial = IFNULL(p_direccion, direccion_comercial)
-        WHERE id_cliente = p_id_cliente;
-    ELSEIF cliente_tipo = 'natural' THEN
-        UPDATE CLIENTE_NATURAL
-        SET
-            dni = IFNULL(p_identificador, dni),
-            apellido = IFNULL(p_nombre_contacto_apellido, apellido),
-            direccion = IFNULL(p_direccion, direccion)
-        WHERE id_cliente = p_id_cliente;
-    END IF;
+	UPDATE cliente_natural
+    SET dni = p_identificador,
+    apellido = p_nombre_contacto_apellido,
+    direccion = p_direccion
+    WHERE id_cliente = p_id_cliente;
 END //
 
 DELIMITER ;
+
 
 
 -- ACTIVAR-INACTIVAR
@@ -106,14 +94,14 @@ BEGIN
     DECLARE v_estado_actual BOOLEAN;
 
     SELECT estado_cliente INTO v_estado_actual
-    FROM clientes
-    WHERE id_cliente = p_id_cliente;
+    FROM cliente
+    WHERE id = p_id_cliente;
 
     IF FOUND_ROWS() > 0 THEN
         IF v_estado_actual THEN
-            UPDATE clientes SET estado_cliente = FALSE WHERE id_cliente = p_id_cliente;
+            UPDATE cliente SET estado_cliente = FALSE WHERE id = p_id_cliente;
         ELSE
-            UPDATE clientes SET estado_cliente = TRUE WHERE id_cliente = p_id_cliente;
+            UPDATE cliente SET estado_cliente = TRUE WHERE id = p_id_cliente;
         END IF;
         SELECT 'Estado del cliente modificado correctamente.';
     ELSE
@@ -503,7 +491,7 @@ CREATE PROCEDURE sp_CrearAtencionCliente (
     IN p_prioridad VARCHAR(50)
 )
 BEGIN
-    INSERT INTO ficha_atencion_cliente (id_cliente, p_id_usuario, asunto, descripcion, estado_ticket, prioridad)
+    INSERT INTO ficha_atencion_cliente (id_cliente, id_usuario, asunto, descripcion, estado_ticket, prioridad)
     VALUES (p_id_cliente, p_id_usuario, p_asunto, p_descripcion, true, p_prioridad);
 
 END//
@@ -989,9 +977,9 @@ CREATE PROCEDURE sp_EditarProyecto (
 )
 BEGIN
     UPDATE proyecto
-    SET objetivo = p_nombre,
-        fecha_inicio = p_email,
-        fecha_final = p_password,
+    SET objetivo = p_objetivo,
+        fecha_inicio = p_fecha_inicio,
+        fecha_final = p_fecha_final,
         presupuesto = p_presupuesto,
         id_contrato = p_id_contrato,
         descripcion = p_descripcion

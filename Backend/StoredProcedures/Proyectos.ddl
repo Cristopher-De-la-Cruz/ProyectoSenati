@@ -50,9 +50,9 @@ CREATE PROCEDURE sp_EditarProyecto (
 )
 BEGIN
     UPDATE proyecto
-    SET objetivo = p_nombre,
-        fecha_inicio = p_email,
-        fecha_final = p_password,
+    SET objetivo = p_objetivo,
+        fecha_inicio = p_fecha_inicio,
+        fecha_final = p_fecha_final,
         presupuesto = p_presupuesto,
         id_contrato = p_id_contrato,
         descripcion = p_descripcion
