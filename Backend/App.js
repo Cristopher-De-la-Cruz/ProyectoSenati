@@ -3,7 +3,6 @@ const app = express()
 const morgan = require('morgan')
 const routes = require('./routes/Routes')
 const router = express.Router();
-//import {router} from './routes/Routes'
 const cors  = require('cors')
  
  
@@ -16,7 +15,6 @@ app.use(cors())
 app.use(routes());
 
 router.get('/', (req, res) => {
-    // Aquí deberías enviar la respuesta adecuada
     res.send('¡Hola, mundo!');
 });
  

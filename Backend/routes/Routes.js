@@ -7,7 +7,7 @@ const usuariosController = require('../Controllers/usuarios.controller');
 const atencionClienteController = require('../Controllers/atencionCliente.controller');
 const contratoController = require('../Controllers/contrato.controller');
 const proyectoController = require('../Controllers/proyecto.controller');
-
+const reunionController = require('../Controllers/reunion.controller');
 module.exports = () =>{
     //TIPO USUARIOS
     router.post('/tipo_usuarios/crear', tipoUsuariosController.crearTipoUsuario );
@@ -54,6 +54,12 @@ module.exports = () =>{
 
     //ACTIVIDADES
     
-
+    //REUNIONES
+    router.post('/reuniones/crear',reunionController.createReuniones);
+    router.get('/reuniones/get',reunionController.getReuniones);
+    
+    //LOGIN
+    router.get('/login-status')
+    
     return router
 }
