@@ -7,6 +7,8 @@ const usuariosController = require('../Controllers/usuarios.controller');
 const atencionClienteController = require('../Controllers/atencionCliente.controller');
 const contratoController = require('../Controllers/contrato.controller');
 const proyectoController = require('../Controllers/proyecto.controller');
+const actividadController = require('../Controllers/actividad.controller');
+const actividadUsuarioController = require('../Controllers/actividadUsuario.controller');
 
 module.exports = () =>{
     //TIPO USUARIOS
@@ -53,7 +55,17 @@ module.exports = () =>{
     router.post('/proyecto/getPorEstado', proyectoController.filtrarPorEstado );
 
     //ACTIVIDADES
-    
+    router.post('/actividades/crear', actividadController.crear );
+    router.get('/actividades/get', actividadController.get );
+    router.put('/actividades/update/:id', actividadController.update );
+    router.put('/actividades/activar_inactivar/:id', actividadController.activarInactivar );
+    router.post('/actividades/getPorEstado', actividadController.filtrarPorEstado );
+    router.get('/actividades/filtrarPorProyecto', actividadController.filtratPorProyecto);  
+
+    //ACTIVIDADES USUARIOS
+    router.post('/actividades_usuarios/crear', actividadUsuarioController.crear );
+    router.get('/actividades_usuarios/get', actividadUsuarioController.get );
+    router.put('/actividades_usuarios/update/:id', actividadUsuarioController.update );
 
     return router
 }
